@@ -1,36 +1,36 @@
 import React from 'react'
 
-export const ContactForm = ({ onSubmit, onChange }) => {
+export const ContactForm = ({ onSubmit }) => {
     return (
-        <form onSubmit={event => onSubmit(event)}>
+        <form onSubmit={evt => onSubmit(evt)}>
             <label>
                 Name
-                <input onChange={event => onChange(event)} type="text" name="name" required />
+                <input type="text" name="name" required />
             </label>
             <label>
                 Number
-                <input onChange={event => onChange(event)} type="tel" name="number" required />
+                <input type="tel" name="number" required />
             </label>
             <button type='submit'>Add contact</button>
         </form>
     )
 }
 
-export const ContactList = ({ contacts }) => {
+export const ContactList = ({ contacts, onClick }) => {
     return (
         <ul>
             {contacts.map(contact => (
-                <li key={contact.id}>{contact.name}: {contact.number}</li>
+                <li key={contact.id}>{contact.name}: {contact.number} <button onClick={() => onClick(contact.id)}>Delete</button></li>
             ))}
         </ul>
     )
 }
 
-export const Filter = ({ onChange }) => {
+export const Filter = ({ onChange, value }) => {
     return (
         <label>
             Find contacts by name
-            <input onChange={event => onChange(event)} type="text" name="filter" />
+            <input onChange={evt => onChange(evt)} type="text" name="filter" value={value} />
         </label>
     )
 }
