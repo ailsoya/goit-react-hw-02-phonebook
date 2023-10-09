@@ -26,8 +26,11 @@ export const ContactList = ({ contacts }) => {
     )
 }
 
-export const Filter = ({ onToggle }) => {
+export const Filter = ({ onChange }) => {
     return (
-        <input onChange={event => onToggle(event)} type="text" name="filter" />
+        <label>
+            Find contacts by name
+            <input onChange={event => onChange(event)} type="text" name="filter" />
+        </label>
     )
 }

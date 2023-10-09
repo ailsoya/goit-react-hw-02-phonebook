@@ -37,12 +37,6 @@ export class App extends Component {
     evt.currentTarget.reset()
   }
 
-  handleToggle = evt => {
-    const { value } = evt.target
-    this.setState({ filter: value })
-    console.log(value)
-  }
-
   render() {
     const { contacts } = this.state
     return (
@@ -51,7 +45,7 @@ export class App extends Component {
         <ContactForm onSubmit={this.handleSubmit} onChange={this.handleChange}/>
 
         <h2>Contacts</h2>
-        <Filter onToggle={this.handleToggle}/>
+        <Filter onChange={this.handleChange}/>
         <ContactList contacts={contacts}/>
       </div>
     )
