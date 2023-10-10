@@ -1,15 +1,11 @@
 import { Component } from 'react'
-import { ContactForm, ContactList, Filter } from './Elements'
-import { nanoid } from 'nanoid'
+import { ContactForm } from './Elements/ContactForm'
+import { ContactList } from './Elements/ContactList'
+import { Filter } from './Elements/Filter'
 
 export class App extends Component {
   state = {
-    contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-    ],
+    contacts: [],
     filter: '',
   }
 
@@ -18,13 +14,9 @@ export class App extends Component {
     this.setState({ [name]: value })
   }
 
-  handleSubmit = evt => {
-    evt.preventDefault()
-
+  handleSubmitApp = newContact => {
     const { contacts } = this.state
-    const name = evt.target.name.value
-    const number = evt.target.number.value
-    const id = nanoid()
+    const { id, name, number } = newContact
 
     const nameInContacs = contacts.some(contact =>
       contact.name.toLocaleLowerCase() === name.toLocaleLowerCase()
@@ -40,8 +32,6 @@ export class App extends Component {
       })
   
       this.setState({ contacts: contacts })
-    
-      evt.target.reset()
     }
   }
 
@@ -66,7 +56,7 @@ export class App extends Component {
     return (
       <div>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.handleSubmit} />
+        <ContactForm onSubmit={this.handleSubmitApp} />
 
         <h2>Contacts</h2>
         <Filter onChange={this.handleChange} value={filter} />
