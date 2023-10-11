@@ -14,7 +14,7 @@ export class App extends Component {
     this.setState({ [name]: value })
   }
 
-  handleSubmitApp = newContact => {
+  handleSubmit = newContact => {
     const { contacts } = this.state
     const { id, name, number } = newContact
 
@@ -56,7 +56,7 @@ export class App extends Component {
     return (
       <div>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.handleSubmitApp} />
+        <ContactForm onSubmit={this.handleSubmit} />
 
         <h2>Contacts</h2>
         <Filter onChange={this.handleChange} value={filter} />

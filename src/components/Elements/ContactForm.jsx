@@ -4,35 +4,26 @@ import { nanoid } from 'nanoid'
 
 class ContactForm extends Component {
     state = {
-        newContact: []
+        id: 0,
+        name: 0,
+        number: 0
     }
 
-    handleSubmit = (evt, onSubmit) => {
-        evt.preventDefault()
-
-        const name = evt.target.name.value
-        const number = evt.target.number.value
-        const id = nanoid()
-
-        const newContact = {
-            id: id,
-            name: name,
-            number: number
-        }
-
-        this.setState({ newContact: newContact })
-        onSubmit(this.state.newContact)
-        //абсолютно без поняття що робити
-
-        evt.target.reset()
-      
+    handleChange = (evt) => {
+        const { name, value } = evt.target
+        this.setState({ [name]: value })
+        this.setState({ id: nanoid() })
     }
   
     render() {
         
         return (
-            <form onSubmit={evt => this.handleSubmit(evt)}
-                className={styles.Form}>
+            <form onChange={evt => this.handleChange(evt)} onSubmit={evt => {
+                evt.preventDefault()
+                evt.target.reset()
+                this.props.onSubmit(this.state)
+                this.setState({ id: 0, name: 0, number:0 })
+            }} className={styles.Form}>
                 <label className={styles.Label}>
                     Name
                     <input type="text" name="name" required />
