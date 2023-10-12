@@ -4,25 +4,25 @@ import { nanoid } from 'nanoid'
 
 class ContactForm extends Component {
     state = {
-        id: 0,
-        name: 0,
-        number: 0
+        name: '',
+        number: ''
     }
 
     handleChange = (evt) => {
         const { name, value } = evt.target
         this.setState({ [name]: value })
-        this.setState({ id: nanoid() })
     }
   
     render() {
+        const id = nanoid()
+        const { name, number } = this.state
         
         return (
             <form onChange={evt => this.handleChange(evt)} onSubmit={evt => {
                 evt.preventDefault()
                 evt.target.reset()
-                this.props.onSubmit(this.state)
-                this.setState({ id: 0, name: 0, number:0 })
+                this.props.onSubmit({ id, name, number })
+                this.setState({ name: '', number: '' })
             }} className={styles.Form}>
                 <label className={styles.Label}>
                     Name
