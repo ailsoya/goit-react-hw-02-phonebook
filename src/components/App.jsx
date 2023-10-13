@@ -30,7 +30,6 @@ export class App extends Component {
         name: name,
         number: number
       })
-  
       this.setState({ contacts: contacts })
     }
   }
