@@ -12,25 +12,27 @@ class ContactForm extends Component {
         const { name, value } = evt.target
         this.setState({ [name]: value })
     }
-  
-    render() {
+
+    prepareToSubmit = (evt) => {
         const id = nanoid()
         const { name, number } = this.state
-        
+        evt.preventDefault()
+        evt.target.reset()
+        this.props.onSubmit({ id, name, number })
+        this.setState({ name: '', number: '' })
+
+    }
+  
+    render() {
         return (
-            <form onChange={evt => this.handleChange(evt)} onSubmit={evt => {
-                evt.preventDefault()
-                evt.target.reset()
-                this.props.onSubmit({ id, name, number })
-                this.setState({ name: '', number: '' })
-            }} className={styles.Form}>
+            <form onSubmit={evt => this.prepareToSubmit(evt)} className={styles.Form}>
                 <label className={styles.Label}>
                     Name
-                    <input type="text" name="name" required />
+                    <input onChange={evt => this.handleChange(evt)} type="text" name="name" required />
                 </label>
                 <label className={styles.Label}>
                     Number
-                    <input type="tel" name="number" required />
+                    <input onChange={evt => this.handleChange(evt)} type="tel" name="number" required />
                 </label>
                 <button type='submit' className={styles.SubmitButton}>Add contact</button>
             </form>
